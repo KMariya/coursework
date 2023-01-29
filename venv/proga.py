@@ -1,6 +1,6 @@
 from kivy.config import Config
 Config.set('graphics','resizable', '0')
-Config.set('graphics','borderless', '1')
+# Config.set('graphics','borderless', '1')
 Config.set('graphics', 'width', '1440')
 Config.set('graphics', 'height', '1024')
 Config.set('graphics', 'left', 240)
@@ -9,6 +9,7 @@ Config.set('graphics', 'position', "custom")
 from kivy.core.window import Window
 
 Window.clearcolor = (13 / 255, 16 / 255, 26 / 255, 1)
+Window.title = "PolyMoney"
 
 from kivy.app import App
 from kivy.uix.button import Button
@@ -29,7 +30,8 @@ predmet_science = ("1", "2")
 kolvo_ochka = 0
 xapp = 1440
 yapp = 1024
-class  MyApp(App):
+class  PolyMoneyApp(App):
+
     def build(self):
         self.sm = ScreenManager()
         screen1 = Screen(name="Menu")
@@ -85,12 +87,12 @@ class  MyApp(App):
         self.oshibka_vibora_razdela = Label(text="",font_size=32)
         al_osnova.add_widget(self.oshibka_vibora_razdela)
 
-        self.knopka_vibr = Button(text="Выбрать",font_size=32,on_press=self.toachiev,size_hint=[444/xapp,95/yapp],pos=(502,180),background_normal="",background_color=(159/255,43/255,85/255))
+        self.knopka_vibr = Button(text="Выбрать",font_size=32,on_press=self.toachiev,size_hint=[444/xapp,95/yapp],pos=(502,322),background_normal="",background_color=(159/255,43/255,85/255))
         al_osnova.add_widget(self.knopka_vibr)
 
         self.uznat_den1 = Button(text="Узнать текущий баланс", font_size=32, on_press=self.balans_window,
-                                size_hint=[444 / xapp, 95 / yapp], pos=(502, 322), background_normal="",
-                                background_color=(159 / 255, 43 / 255, 85 / 255))
+                                size_hint=[444 / xapp, 95 / yapp], pos=(502, 180), background_normal="",
+                                background_color=(59 / 255, 74 / 255, 150 / 255))
         al_osnova.add_widget(self.uznat_den1)
 
         al_osnova.add_widget(Button(text="Назад",font_size=32,on_press=self.tomenu,size_hint=[300/xapp,95/yapp],pos=(570,38),background_normal="",background_color=(40/255,48/255,78/255)))
@@ -123,12 +125,12 @@ class  MyApp(App):
         al_dostizh.add_widget(self.knopka_vibora_achiv)
         spisok_achiev.bind(on_select=lambda instance, x: setattr(self.knopka_vibora_achiv,'text',x))
 
-        self.knopka_achiv = Button(text="Выбрать",font_size=32,on_press=self.vibor_achiv,size_hint=[444/xapp,95/yapp],pos=(502,180),background_normal="",background_color=(159/255,43/255,85/255))
+        self.knopka_achiv = Button(text="Выбрать",font_size=32,on_press=self.vibor_achiv,size_hint=[444/xapp,95/yapp],pos=(502,322),background_normal="",background_color=(159/255,43/255,85/255))
         al_dostizh.add_widget(self.knopka_achiv)
 
         self.uznat_den = Button(text="Узнать текущий баланс", font_size=32, on_press=self.balans_window,
-                                   size_hint=[444 / xapp, 95 / yapp], pos=(502, 322), background_normal="",
-                                   background_color=(159 / 255, 43 / 255, 85 / 255))
+                                   size_hint=[444 / xapp, 95 / yapp], pos=(502, 180), background_normal="",
+                                   background_color=(59 / 255, 74 / 255, 150 / 255))
         al_dostizh.add_widget(self.uznat_den)
 
         self.oshibka_vibora_achiv = Label(text="",font_size=32)
@@ -235,15 +237,15 @@ class  MyApp(App):
             self.oshibka_vibora_achiv.text = "Вы не выбрали достижение"
         else:
             self.oshibka_vibora_achiv.text = ""
-            self.nach_ball.text = "Вам начислено 50 баллов"
-            kolvo_ochka = kolvo_ochka+50
+            self.nach_ball.text = "Вам начислено 20 баллов"
+            kolvo_ochka = kolvo_ochka+20
             #изменение суммы
             self.balans_label_ball_summ.text = str(kolvo_ochka)
-            self.balans_label_den_summ.text = str(kolvo_ochka*1.9)
+            self.balans_label_den_summ.text = str(kolvo_ochka*35)
 
     def stop_prog(self,instance):
         self.root_window.close()
 
 if __name__ == "__main__":
-    MyApp().run()
+    PolyMoneyApp().run()
 
