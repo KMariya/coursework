@@ -40,15 +40,20 @@ class  MyApp(App):
         # Screen 1. Начальный экран
         al_menu = FloatLayout()
         al_menu.add_widget(Label(text="Введите ваше ФИО:",font_size=48,size_hint=[467/xapp,58/yapp],pos=(487,840)))
-        self.inputa_data = TextInput(size_hint=[850/xapp,50/yapp],pos=(295,720),multiline=False)
+        self.inputa_data = TextInput(size_hint=[850/xapp,50/yapp],pos=(295,770),multiline=False)
         al_menu.add_widget(self.inputa_data)
+
+        al_menu.add_widget(Label(text="Введите вашу группу:", font_size=48, size_hint=[467 / xapp, 58 / yapp], pos=(487, 690)))
+        self.inputa_data1 = TextInput(size_hint=[350 / xapp, 50 / yapp], pos=(545, 620), multiline=False)
+        al_menu.add_widget(self.inputa_data1)
+
         self.oshibka_vvoda = Label(text="",font_size=32)
         al_menu.add_widget(self.oshibka_vvoda)
         al_menu.add_widget(Button(text="Войти",
                       font_size = 32,
                       on_press = self.toosn,
                       size_hint=[300/xapp,104/yapp],
-                      pos=(570,353),
+                      pos=(570,300),
                       background_normal="",background_color=(159/255,43/255,85/255)))
 
         al_menu.add_widget(Button(text="Выйти",on_press=self.stop_prog,font_size=32,size_hint=[300/xapp,95/yapp],pos=(570,38),background_normal="",background_color=(40/255,48/255,78/255)))
@@ -58,6 +63,9 @@ class  MyApp(App):
         al_osnova = FloatLayout()
         self.fio_label = Label(text="",font_size=48,size_hint=[702/xapp,58/yapp],pos=(369,885))
         al_osnova.add_widget(self.fio_label)
+
+        self.grup_label = Label(text="",font_size=48,size_hint=[702/xapp,58/yapp],pos=(369,815))
+        al_osnova.add_widget(self.grup_label)
 
         self.predmet_label = Label(text="Выберите раздел:",font_size=32,size_hint=[283/xapp,39/yapp],pos=(100,686))
         al_osnova.add_widget(self.predmet_label)
@@ -90,11 +98,15 @@ class  MyApp(App):
 
         # Screen 3. Выбор достижений.
         al_dostizh = FloatLayout()
-        self.achiv_label = Label(text="Выберите достижение:",halign="left",font_size=32,size_hint=[366/xapp,39/yapp],text_size=(366,39),pos=(100,686))
+        self.achiv_label = Label(text="Выберите достижение:",halign="left",font_size=32,size_hint=[366/xapp,39/yapp],text_size=(366,39),pos=(100,636))
         self.fio_label1 = Label(text="", font_size=48, size_hint=[702 / xapp, 58 / yapp],pos=(369, 885))
         al_dostizh.add_widget(self.fio_label1)
-        self.razdel = Label(text="Раздел:", halign="left",text_size=(121,39),font_size=32, size_hint=[121 / xapp, 39 / yapp],pos=(100, 785))
-        self.vibr_razdel = Label(text="", font_size=32, halign="left",size_hint=[800 / xapp, 39 / yapp],text_size=(800, 39),pos=(271, 785))
+
+        self.grup_label1 = Label(text="", font_size=48, size_hint=[702 / xapp, 58 / yapp], pos=(369, 815))
+        al_dostizh.add_widget(self.grup_label1)
+
+        self.razdel = Label(text="Раздел:", halign="left",text_size=(121,39),font_size=32, size_hint=[121 / xapp, 39 / yapp],pos=(100, 735))
+        self.vibr_razdel = Label(text="", font_size=32, halign="left",size_hint=[800 / xapp, 39 / yapp],text_size=(800, 39),pos=(271, 735))
 
         al_dostizh.add_widget(self.razdel)
         al_dostizh.add_widget(self.vibr_razdel)
@@ -107,7 +119,7 @@ class  MyApp(App):
             spisok_achiev.add_widget(btn)
         spisok_achiev.container.spacing = 4
 
-        self.knopka_vibora_achiv = Button(size_hint=[828 / xapp, 70 / yapp], font_size=32,pos=(512, 671),color=(0,0,0,1),background_normal="",background_color=(157 / 255, 191 / 255, 231 / 255, 1),on_release=spisok_achiev.open)
+        self.knopka_vibora_achiv = Button(size_hint=[828 / xapp, 70 / yapp], font_size=32,pos=(512, 621),color=(0,0,0,1),background_normal="",background_color=(157 / 255, 191 / 255, 231 / 255, 1),on_release=spisok_achiev.open)
         al_dostizh.add_widget(self.knopka_vibora_achiv)
         spisok_achiev.bind(on_select=lambda instance, x: setattr(self.knopka_vibora_achiv,'text',x))
 
@@ -133,6 +145,9 @@ class  MyApp(App):
         fl_balans = FloatLayout()
         self.fio_label3 = Label(text="",font_size=48,size_hint=[702/xapp,58/yapp],pos=(369,885))
         fl_balans.add_widget(self.fio_label3)
+
+        self.grup_label2 = Label(text="", font_size=48, size_hint=[702 / xapp, 58 / yapp], pos=(369, 815))
+        fl_balans.add_widget(self.grup_label2)
 
         self.balans_label_ball = Label(text = "Ваше количество баллов",font_size=48,pos=(0,150))
         fl_balans.add_widget(self.balans_label_ball)
@@ -161,6 +176,7 @@ class  MyApp(App):
 
     def tomenu(self,instance):
         self.inputa_data.text = ""
+        self.inputa_data1.text = ""
         self.stroka.text = ""
         self.sm.current = "Menu"
         self.sm.transition.direction = "right"
@@ -172,13 +188,17 @@ class  MyApp(App):
     def toosn(self,instance):
         data = self.inputa_data.text
         data = " ".join(data.split())
-        if data == "":
-            self.oshibka_vvoda.text = "Вы не ввели ФИО"
+        data1 = self.inputa_data1.text
+        if data == "" or data1 == "":
+            self.oshibka_vvoda.text = "Вы не ввели все данные"
         else:
             self.oshibka_vvoda.text = ""
             self.fio_label.text = data
             self.fio_label1.text = data
             self.fio_label3.text = data
+            self.grup_label.text = data1
+            self.grup_label1.text = data1
+            self.grup_label2.text = data1
             self.sm.current = "Основа"
             self.sm.transition.direction = "left"
 
